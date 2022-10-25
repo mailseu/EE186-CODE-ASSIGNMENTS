@@ -11,6 +11,8 @@ int gateInput() {
 	char gateSelection[10];
 	int userGate;
 
+	printf("\n\n\n\tGATE Options: \n\n\t1 = [AND] \n\t2 = [OR] \n\t3 = [NAND] \n\t4 = [NOR] \n\t5 = [XOR] \n\t6 = [XNOR] \n\t7 = [NOT] \n\t8 = [BUFFER] \n\t9 = [ALL GATES]");
+
 InputStart: 
 
 	printf("\n\n\tSelection of GATE: ");
@@ -43,7 +45,7 @@ int userInputA() {
 		scanf_s(" %c", &inputA);
 
 		if (isalpha(inputA)) {
-			printf("\n\t[Invalid Input, Please Try Again]\n");
+			printf("\t[Invalid Input, Please Try Again]\n");
 			flag = false; 
 		}
 		inputA = inputA - '0';
@@ -52,7 +54,7 @@ int userInputA() {
 			printf("\t[Inputed A = %d]", inputA);
 		}
 		else {
-			printf("\n\t[Invalid Input, Please Try Again]\n");
+			printf("\t[Invalid Input, Please Try Again]\n");
 			flag = false;
 		}
 
@@ -79,7 +81,7 @@ int userInputB() {
 			printf("\t[Inputed B = %d]", inputB);
 		}
 		else {
-			printf("\n\t[Invalid Input, Please Try Again]\n");
+			printf("\t[Invalid Input, Please Try Again]\n");
 			flag = false;
 		}
 
@@ -300,6 +302,7 @@ int main(void) {
 			xnorGate(numA, numB);
 			notGate(numA, numB, gate);
 			bufferGate(numA, numB, gate);
+			break;
 		}
 
 		flag = programRestart();
