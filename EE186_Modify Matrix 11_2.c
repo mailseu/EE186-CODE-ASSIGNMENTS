@@ -7,6 +7,15 @@
 #include <stdbool.h>
 #include <ctype.h>
 
+char tempMatrix[6][6];
+char matrix[6][6] = {
+	"147dE7",
+	"23406g",
+	"nOTRYx",
+	"QGp50t",
+	"AseE7m",
+	"198mbO" };
+
 int userInputDIGIT() {
 	char userInput[10];
 	bool flag;
@@ -25,6 +34,8 @@ int userInputDIGIT() {
 		flag = characterCheck(userInput);
 		if (!flag) {
 			goto InputStart;
+		} if (value == 9) {
+			continue;
 		}
 		else if (value < 1 || value > 6) {
 			printf("\t[Input Invalid, Please Try Again]");
@@ -119,11 +130,13 @@ InputStart:
 
 	case 'Y':
 		printf("\n\n\t[Resuming Program...]\n\n");
+		projectIntroductionChoice();
 		break;
 
 
 	case 'y':
 		printf("\n\n\t[Resuming Program...]\n\n");
+		projectIntroductionChoice();
 		break;
 
 
@@ -145,20 +158,22 @@ int systemPause() {
 int projectIntroduction() {
 	printf("\n\t****** Welcome to the Modify Matrix Program ******");
 	printf("\n\n\tDirections: Please follow the prompts on the screen and input accordingly\n");
-
-	printf("\n\tChoose one the following to do:");
+}
+int projectIntroductionChoice() {
+	printf("\n\tInput an integer to choose one the following to do:");
 	printf("\n\t1 = Count number of integers, lower, and upper case letters w/printout for each one");
 	printf("\n\t2 = Replace all uppercase E and O with z");
 	printf("\n\t3 = Replace all even integers with letter E");
 	printf("\n\t4 = Reaplce all odd integers with letter O");
 	printf("\n\t5 = Sum of all integers (not letters)");
 	printf("\n\t6 = Replace diagonal with character 'number'");
+	printf("\n\n\t9 = Reset matrix to original");
 }
 int printingMatrix(char num[6][6]) {
 	for (int i = 0; i < 6; i++) {
 		printf("\n\t");
 		for (int x = 0; x < 6; x++) {
-			printf("%c   ", num[i][x]);
+			printf("%c        ", num[i][x]);
 		}
 	}
 }
@@ -192,6 +207,10 @@ int taskSwitch(int userChoice, char num[6][6]) {
 	case 6:
 		printf("\n\n\t[Option 6 Selected] (Replace diagonal with character 'number')");
 		diagonalReplacement(num);
+		break;
+	case 9:
+		printf("\n\t[Option 9 Selected] (Reseting to orginial matrix)");
+		tempToOrginal(matrix);
 		break;
 	}
 }
@@ -274,34 +293,38 @@ int diagonalReplacement(char num[6][6]) {
 		}
 	}
 }
+int tempToOrginal(char num[6][6]) {
+	for (int i = 0; i < 6; i++) {
+		for (int x = 0; x < 6; x++) {
+			tempMatrix[i][x] = matrix[i][x];
+		}
+	}
+}
 
 int main(void) {
 	int userSelection;
 	bool programContinue = true;
-	char matrix[6][6] = {
-	"147dE7",
-	"23406g",
-	"nOTRYx",
-	"QGp50t",
-	"AseE7m",
-	"198mbO" };
+
+	projectIntroduction();
+	projectIntroductionChoice();
+
+	printf("\n\n\t[Original Matrix]");
+	printingMatrix(matrix);
+
+	tempToOrginal(matrix);
 
 	do {
-
-		projectIntroduction();
 		userSelection = userInputDIGIT();
 
-		printf("\n\t[Before Results Matrix]");
-		printingMatrix(matrix);
-
-		taskSwitch(userSelection, matrix);
+		taskSwitch(userSelection, tempMatrix);
 
 		printf("\n\n\t[After Results Matrix]");
-		printingMatrix(matrix);
+		printingMatrix(tempMatrix);
 
 		programContinue = programRestart();
 
 	} while (programContinue = true);
+
 
 	systemPause();
 	return 0;
