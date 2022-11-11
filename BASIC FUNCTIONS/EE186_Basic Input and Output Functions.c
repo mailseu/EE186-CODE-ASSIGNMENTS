@@ -33,6 +33,62 @@ int characterCheck(char input[]) { //provided chracter checker by me (henry sama
 	}
 	return charInput;
 }
+int userInputDIGIT() { //provided digit input by me (henry)
+	char userInput[10];
+	bool flagInput, validInput;
+	int valueOutput;
+
+	do {
+		flagInput = true;
+		validInput = true;
+
+		do {
+
+			printf("\n\n\tInput: ");
+			scanf_s("%s", &userInput, 10);
+			sscanf_s(userInput, "%d", &valueOutput);
+
+			validInput = characterCheck(userInput);
+
+		} while (!validInput);
+
+		if (valueOutput < 0 || valueOutput > 9) { //change according to input reqiurements
+			printf("\t[Input Invalid, Please Try Again]");
+			flagInput = false;
+		}
+
+	} while (!flagInput);
+	printf("\n\t[User Inputed Value = %d]\n", valueOutput);
+	return valueOutput;
+}
+int userInputCHARACTER() { //provided character input by me (henry)
+	char userInput[10], valueOutput;
+	bool flagInput, validInput;
+
+	do {
+		flagInput = true;
+		validInput = true;
+
+		do {
+
+			printf("\n\n\tInput: ");
+			scanf_s("%s", &userInput, 10);
+			sscanf_s(userInput, "%c", &valueOutput);
+
+			validInput = digitCheck(userInput);
+
+		} while (!validInput);
+
+		if ((valueOutput < 65 || valueOutput > 90) && (valueOutput < 97 || valueOutput > 122)) { //change according to input reqiurements A-Z and a-z (ascii code)
+			printf("\t[Input Invalid, Please Try Again]");
+			flagInput = false;
+		}
+
+	} while (!flagInput);
+	printf("\n\t[User Inputed Value = %c]\n", valueOutput);
+
+	return valueOutput;
+}
 int programRestart() { //provided by me (henry samala)
 	char valueOutput;
 	char userChoice[10];
